@@ -1,0 +1,2182 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartSeva Hub — All-in-One Smart Tools & Reports</title>
+  <!-- Google Fonts: Plus Jakarta Sans (English) & Noto Sans Devanagari (Hindi) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & THEME CONFIGURATION (LIGHT & DARK MODE)
+       ========================================================================== */
+    :root {
+      --bg-gradient: linear-gradient(135deg, #f0f4ff 0%, #e6f7f5 50%, #f8fafc 100%);
+      --surface: rgba(255, 255, 255, 0.85);
+      --surface-solid: #ffffff;
+      --surface-hover: #f1f5f9;
+      --border: rgba(148, 163, 184, 0.28);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: rgba(37, 99, 235, 0.12);
+
+      --accent: #0d9488;
+      --accent-soft: rgba(13, 148, 136, 0.12);
+
+      --success: #16a34a;
+      --success-soft: rgba(22, 163, 74, 0.14);
+      --warning: #d97706;
+      --warning-soft: rgba(217, 119, 6, 0.14);
+      --danger: #dc2626;
+      --danger-soft: rgba(220, 38, 38, 0.14);
+      --whatsapp: #25D366;
+      --whatsapp-hover: #1ebe5d;
+
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.08);
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="dark"] {
+      --bg-gradient: linear-gradient(135deg, #0b1120 0%, #0f172a 50%, #111827 100%);
+      --surface: rgba(30, 41, 59, 0.78);
+      --surface-solid: #1e293b;
+      --surface-hover: #283548;
+      --border: rgba(148, 163, 184, 0.16);
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+
+      --primary: #3b82f6;
+      --primary-hover: #60a5fa;
+      --primary-soft: rgba(59, 130, 246, 0.18);
+
+      --accent: #14b8a6;
+      --accent-soft: rgba(20, 184, 166, 0.18);
+
+      --success: #22c55e;
+      --success-soft: rgba(34, 197, 94, 0.18);
+      --warning: #f59e0b;
+      --warning-soft: rgba(245, 158, 11, 0.18);
+      --danger: #ef4444;
+      --danger-soft: rgba(239, 68, 68, 0.18);
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+      --shadow-md: 0 12px 32px -4px rgba(0, 0, 0, 0.45);
+    }
+
+    /* ==========================================================================
+       2. GLOBAL RESET & BASE TYPOGRAPHY
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      line-height: 1.55;
+      min-height: 100vh;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 16px 48px;
+    }
+
+    /* ==========================================================================
+       3. TOP NAVIGATION BAR (GLASSMORPHISM)
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      margin-bottom: 22px;
+    }
+
+    .nav-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-tagline {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Language Segmented Pill Switch */
+    .lang-toggle {
+      display: inline-flex;
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      padding: 6px 13px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .lang-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Dark/Light Theme Button */
+    .theme-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface-solid);
+      color: var(--text-primary);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .theme-btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--primary);
+    }
+
+    /* ==========================================================================
+       4. MAIN PILL TABS NAVIGATION
+       ========================================================================== */
+    .tabs-wrapper {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 24px;
+      scrollbar-width: none;
+    }
+    .tabs-wrapper::-webkit-scrollbar { display: none; }
+
+    .tab-pill {
+      flex: 1;
+      min-width: 155px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      white-space: nowrap;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tab-pill:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .tab-pill.active {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.4);
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeSlideIn 0.32s ease forwards;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       5. CARDS, GRIDS & FORM CONTROLS
+       ========================================================================== */
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface-solid);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-soft);
+    }
+
+    /* Range Slider Styling */
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    /* Result Stat Boxes */
+    .stat-box {
+      background: var(--surface-solid);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 15px 16px;
+      transition: var(--transition);
+    }
+
+    .stat-box:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 1.38rem;
+      font-weight: 800;
+      color: var(--primary);
+      word-break: break-word;
+    }
+
+    .stat-sub {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ==========================================================================
+       6. BUTTONS & BADGES
+       ========================================================================== */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      border: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: var(--surface-solid);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { background: var(--surface-hover); border-color: var(--primary); }
+
+    .btn-whatsapp {
+      background: var(--whatsapp);
+      color: #ffffff;
+    }
+    .btn-whatsapp:hover { background: var(--whatsapp-hover); transform: translateY(-1px); }
+
+    .btn-danger {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+    .btn-danger:hover { background: var(--danger); color: #fff; }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+    .badge-success { background: var(--success-soft); color: var(--success); }
+    .badge-warning { background: var(--warning-soft); color: var(--warning); }
+    .badge-danger { background: var(--danger-soft); color: var(--danger); }
+    .badge-primary { background: var(--primary-soft); color: var(--primary); }
+
+    /* ==========================================================================
+       7. SPECIFIC COMPONENT STYLES (FORMULAS, EMI BAR, TABLES, TOAST)
+       ========================================================================== */
+    /* Category Filter Pills */
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .pill-btn {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-solid);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .pill-btn.active, .pill-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Formula Card */
+    .formula-card {
+      background: var(--surface-solid);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .formula-code {
+      background: var(--surface-hover);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--accent);
+      overflow-x: auto;
+    }
+
+    /* EMI Visual Progress Bar */
+    .emi-bar-wrap {
+      margin-top: 16px;
+    }
+
+    .emi-bar {
+      height: 14px;
+      border-radius: 999px;
+      background: var(--warning);
+      overflow: hidden;
+      display: flex;
+    }
+
+    .emi-bar-principal {
+      background: var(--primary);
+      height: 100%;
+      transition: width 0.35s ease;
+    }
+
+    .emi-legend {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin-top: 6px;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
+    /* Smart Office Sub-Switcher */
+    .mode-switcher {
+      display: inline-flex;
+      background: var(--surface-solid);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 9px 16px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.88rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .mode-btn.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Data Table */
+    .table-responsive {
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface-solid);
+      margin-top: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--surface-hover);
+      font-weight: 700;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--surface-hover); }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Subject Grid Toggle */
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+      padding: 14px;
+      background: var(--surface-hover);
+      border-radius: var(--radius-md);
+    }
+
+    /* ==========================================================================
+       8. PRINT STYLESHEET (@media print) FOR CLEAN OFFICIAL PDF REPORTS
+       ========================================================================== */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .navbar, .tabs-wrapper, .no-print, .mode-switcher, .btn-row, .toast {
+        display: none !important;
+      }
+      .tab-panel {
+        display: none !important;
+      }
+      #tab-office {
+        display: block !important;
+      }
+      .card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        background: #fff !important;
+        padding: 10px !important;
+      }
+      .print-header {
+        display: block !important;
+        text-align: center;
+        margin-bottom: 16px;
+        border-bottom: 2px solid #000;
+        padding-bottom: 8px;
+      }
+      th, td {
+        border: 1px solid #999 !important;
+        color: #000 !important;
+      }
+    }
+
+    .print-header {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       TOP NAVIGATION BAR
+       ======================================================================== -->
+  <header class="navbar">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">S</div>
+        <div>
+          <div class="brand-title">SmartSeva Hub</div>
+          <div class="brand-tagline" data-i18n="tagline">All-in-One Smart Tools & Reports</div>
+        </div>
+      </div>
+
+      <div class="nav-controls">
+        <!-- Bilingual Toggle -->
+        <div class="lang-toggle" role="group" aria-label="Language Switch">
+          <button type="button" class="lang-btn active" id="btn-lang-en" onclick="setLanguage('en')">English</button>
+          <button type="button" class="lang-btn" id="btn-lang-hi" onclick="setLanguage('hi')">हिंदी</button>
+        </div>
+
+        <!-- Dark / Light Theme Toggle -->
+        <button type="button" class="theme-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle Theme">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ======================================================================
+         4 MAIN PILL NAVIGATION TABS
+         ====================================================================== -->
+    <nav class="tabs-wrapper" role="tablist">
+      <button class="tab-pill active" onclick="switchTab('kisan', this)">
+        <span>🌾</span> <span data-i18n="tabKisan">Kisan Hub</span>
+      </button>
+      <button class="tab-pill" onclick="switchTab('student', this)">
+        <span>🎓</span> <span data-i18n="tabStudent">Student Hub</span>
+      </button>
+      <button class="tab-pill" onclick="switchTab('daily', this)">
+        <span>🧮</span> <span data-i18n="tabDaily">Daily Tools</span>
+      </button>
+      <button class="tab-pill" onclick="switchTab('office', this)">
+        <span>📊</span> <span data-i18n="tabOffice">Office & Report Hub</span>
+      </button>
+    </nav>
+
+    <!-- ======================================================================
+         TAB 1: KISAN HUB (LAND AREA CONVERTER - BIHAR / UP / INDIA)
+         ====================================================================== -->
+    <section id="tab-kisan" class="tab-panel active">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">🌾 <span data-i18n="kisanTitle">Regional Land Area Converter (Bihar / UP / India)</span></h2>
+            <p class="card-subtitle" data-i18n="kisanSub">Instant conversion between Bigha, Katha, Dhur, Dismil, Acre, Hectare & Sq. Ft.</p>
+          </div>
+          <span class="badge badge-success" data-i18n="liveBadge">Live Calculation</span>
+        </div>
+
+        <div class="grid-3">
+          <!-- Land Area Value -->
+          <div class="form-group">
+            <label class="form-label" for="landValue" data-i18n="landValLabel">Enter Land Area Value</label>
+            <input type="number" id="landValue" class="form-control" value="1" min="0" step="any" oninput="calculateLand()" />
+          </div>
+
+          <!-- Unit Selector -->
+          <div class="form-group">
+            <label class="form-label" for="landUnit" data-i18n="landUnitLabel">Select Input Unit</label>
+            <select id="landUnit" class="form-control" onchange="calculateLand()">
+              <option value="bigha" data-i18n="uBigha">Bigha (बीघा)</option>
+              <option value="katha" selected data-i18n="uKatha">Katha (कट्ठा)</option>
+              <option value="dhur" data-i18n="uDhur">Dhur (धुर)</option>
+              <option value="sqft" data-i18n="uSqft">Square Feet (वर्ग फीट)</option>
+              <option value="decimal" data-i18n="uDecimal">Decimal / Dismil (डिसमिल)</option>
+              <option value="acre" data-i18n="uAcre">Acre (एकड़)</option>
+              <option value="hectare" data-i18n="uHectare">Hectare (हेक्टेयर)</option>
+            </select>
+          </div>
+
+          <!-- Regional Laggi Size Selector -->
+          <div class="form-group">
+            <label class="form-label" for="laggiPreset" data-i18n="laggiLabel">Regional Laggi Size (1 Katha Standard)</label>
+            <select id="laggiPreset" class="form-control" onchange="handleLaggiChange()">
+              <option value="1361.25" selected data-i18n="laggi55">5.5 Hath Laggi (1 Katha = 1361.25 sq. ft. — Bihar/Katihar/Purnia)</option>
+              <option value="1620" data-i18n="laggi60">6 Hath Laggi (1 Katha = 1620 sq. ft.)</option>
+              <option value="1901.25" data-i18n="laggi65">6.5 Hath Laggi (1 Katha = 1901.25 sq. ft.)</option>
+              <option value="720" data-i18n="laggi40">4 Hath Laggi (1 Katha = 720 sq. ft. — Patna/South Bihar)</option>
+              <option value="custom" data-i18n="laggiCustom">Custom Katha in Sq. Ft.</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Custom Katha Input (Revealed only when Custom is selected) -->
+        <div id="customKathaWrap" class="form-group" style="display: none; margin-top: 14px; max-width: 320px;">
+          <label class="form-label" for="customKathaSqft" data-i18n="customKathaLabel">Enter 1 Katha in Square Feet (Sq. Ft.)</label>
+          <input type="number" id="customKathaSqft" class="form-control" value="1361.25" min="1" step="any" oninput="calculateLand()" />
+        </div>
+
+        <!-- Live Output Grid -->
+        <div class="grid-3" style="margin-top: 20px;">
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="uBigha">Bigha (बीघा)</div>
+            <div class="stat-value" id="resBigha">0.0500</div>
+            <div class="stat-sub">1 Bigha = 20 Katha</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="uKatha">Katha (कट्ठा)</div>
+            <div class="stat-value" id="resKatha">1.0000</div>
+            <div class="stat-sub">1 Katha = 20 Dhur</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="uDhur">Dhur (धुर)</div>
+            <div class="stat-value" id="resDhur">20.0000</div>
+            <div class="stat-sub" id="dhurSqftNote">1 Dhur = 68.06 sq. ft.</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="uSqft">Square Feet (वर्ग फीट)</div>
+            <div class="stat-value" id="resSqft">1,361.25</div>
+            <div class="stat-sub" data-i18n="exactArea">Exact Area</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="uDecimal">Decimal / Dismil (डिसमिल)</div>
+            <div class="stat-value" id="resDecimal">3.1250</div>
+            <div class="stat-sub">1 Dismil = 435.6 sq. ft.</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="uAcre">Acre (एकड़)</div>
+            <div class="stat-value" id="resAcre">0.0313</div>
+            <div class="stat-sub">1 Acre = 43,560 sq. ft.</div>
+          </div>
+        </div>
+
+        <!-- Copy & WhatsApp Share Actions -->
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" onclick="copyLandResult()">
+            📋 <span data-i18n="copyResultBtn">Copy Result</span>
+          </button>
+          <button type="button" class="btn btn-whatsapp" onclick="shareLandWhatsApp()">
+            💬 <span data-i18n="shareWaBtn">Share on WhatsApp</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 2: STUDENT HUB (MARKS/CGPA + SEARCHABLE FORMULA CHEAT-SHEET)
+         ====================================================================== -->
+    <section id="tab-student" class="tab-panel">
+      <!-- Part A: Percentage & CGPA Calculator -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">📊 <span data-i18n="marksTitle">Percentage, CGPA & Division Calculator</span></h2>
+            <p class="card-subtitle" data-i18n="marksSub">Enter total marks or toggle the 5-subject quick adder below</p>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSubjectAdder()" data-i18n="toggle5SubBtn">
+            + 5-Subject Quick Adder
+          </button>
+        </div>
+
+        <!-- Optional 5-Subject Quick Marks Adder -->
+        <div id="subjectAdderBox" style="display: none; margin-bottom: 16px;">
+          <p class="form-label" data-i18n="subAdderNote">Enter marks for 5 subjects (out of 100 each) to auto-fill total:</p>
+          <div class="subject-grid">
+            <input type="number" class="form-control sub-mark" placeholder="Subject 1" min="0" max="100" oninput="sumSubjects()" />
+            <input type="number" class="form-control sub-mark" placeholder="Subject 2" min="0" max="100" oninput="sumSubjects()" />
+            <input type="number" class="form-control sub-mark" placeholder="Subject 3" min="0" max="100" oninput="sumSubjects()" />
+            <input type="number" class="form-control sub-mark" placeholder="Subject 4" min="0" max="100" oninput="sumSubjects()" />
+            <input type="number" class="form-control sub-mark" placeholder="Subject 5" min="0" max="100" oninput="sumSubjects()" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label" for="marksObtained" data-i18n="marksObtLabel">Marks Obtained</label>
+            <input type="number" id="marksObtained" class="form-control" value="395" min="0" oninput="calculateMarks()" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="marksTotal" data-i18n="marksTotLabel">Total Maximum Marks</label>
+            <input type="number" id="marksTotal" class="form-control" value="500" min="1" oninput="calculateMarks()" />
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top: 18px;">
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="pctLabel">Percentage (%)</div>
+            <div class="stat-value" id="resPct">79.00%</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="cgpaLabel">Estimated CGPA (10-Point)</div>
+            <div class="stat-value" id="resCgpa">8.32</div>
+            <div class="stat-sub">CBSE Formula: % ÷ 9.5</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="divLabel">Division / Grade</div>
+            <div class="stat-value" id="resDiv" style="font-size: 1.1rem; color: var(--success);">1st Div (Distinction)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Part B: Searchable Formula Cheat-Sheet -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">📚 <span data-i18n="formulaTitle">Searchable Formula Cheat-Sheet (Class 10–12 & IT)</span></h2>
+            <p class="card-subtitle" data-i18n="formulaSub">Search formulas by name, symbol, or topic and copy with one click</p>
+          </div>
+        </div>
+
+        <input type="text" id="formulaSearch" class="form-control" data-i18n-placeholder="formulaSearchPh" placeholder="Search formula (e.g., Ohm, Quadratic, Kinematics, HTML)..." oninput="renderFormulas()" />
+
+        <div class="filter-pills" id="formulaCategories">
+          <button type="button" class="pill-btn active" data-cat="All" onclick="setFormulaCat('All', this)" data-i18n="catAll">All</button>
+          <button type="button" class="pill-btn" data-cat="Physics" onclick="setFormulaCat('Physics', this)" data-i18n="catPhysics">Physics</button>
+          <button type="button" class="pill-btn" data-cat="Chemistry" onclick="setFormulaCat('Chemistry', this)" data-i18n="catChemistry">Chemistry</button>
+          <button type="button" class="pill-btn" data-cat="Maths" onclick="setFormulaCat('Maths', this)" data-i18n="catMaths">Maths</button>
+          <button type="button" class="pill-btn" data-cat="Computer" onclick="setFormulaCat('Computer', this)" data-i18n="catComputer">Computer/HTML</button>
+        </div>
+
+        <div class="grid-3" id="formulaGrid"></div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 3: DAILY TOOLS (EXACT AGE CALCULATOR + LOAN/EMI CALCULATOR)
+         ====================================================================== -->
+    <section id="tab-daily" class="tab-panel">
+      <!-- Part A: Exact Age Calculator -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">🎂 <span data-i18n="ageTitle">Exact Age Calculator (For Forms & Exams)</span></h2>
+            <p class="card-subtitle" data-i18n="ageSub">Find exact age in Years, Months & Days for Government Job & School forms</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label" for="dobInput" data-i18n="dobLabel">Date of Birth</label>
+            <input type="date" id="dobInput" class="form-control" onchange="calculateAge()" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="asOnInput" data-i18n="asOnLabel">Age as on Date (Defaults to Today)</label>
+            <input type="date" id="asOnInput" class="form-control" onchange="calculateAge()" />
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top: 18px;">
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="exactAgeLabel">Exact Age</div>
+            <div class="stat-value" id="resExactAge" style="font-size: 1.2rem;">--</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="totalDaysLabel">Total Days Lived</div>
+            <div class="stat-value" id="resTotalDays">--</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="nextBdayLabel">Next Birthday Countdown</div>
+            <div class="stat-value" id="resNextBday" style="color: var(--accent);">--</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Part B: EMI & Loan Interest Calculator -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">💰 <span data-i18n="emiTitle">Loan & EMI Calculator</span></h2>
+            <p class="card-subtitle" data-i18n="emiSub">Calculate monthly EMI, total interest, and principal-to-interest breakdown</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <!-- Loan Amount -->
+          <div class="form-group">
+            <label class="form-label" for="loanAmount" data-i18n="loanAmtLabel">Loan Amount (₹)</label>
+            <input type="number" id="loanAmount" class="form-control" value="200000" min="1000" max="10000000" step="1000" oninput="syncEmiInputs('amount', 'num')" />
+            <input type="range" id="loanAmountRange" min="10000" max="5000000" step="10000" value="200000" oninput="syncEmiInputs('amount', 'range')" />
+          </div>
+
+          <!-- Interest Rate -->
+          <div class="form-group">
+            <label class="form-label" for="interestRate" data-i18n="rateLabel">Annual Interest Rate (%)</label>
+            <input type="number" id="interestRate" class="form-control" value="9.5" min="0.1" max="40" step="0.1" oninput="syncEmiInputs('rate', 'num')" />
+            <input type="range" id="interestRateRange" min="1" max="30" step="0.25" value="9.5" oninput="syncEmiInputs('rate', 'range')" />
+          </div>
+
+          <!-- Tenure -->
+          <div class="form-group">
+            <label class="form-label" data-i18n="tenureLabel">Loan Tenure</label>
+            <div style="display: flex; gap: 8px;">
+              <input type="number" id="loanTenure" class="form-control" value="3" min="1" max="360" oninput="syncEmiInputs('tenure', 'num')" />
+              <select id="tenureType" class="form-control" style="max-width: 115px;" onchange="calculateEMI()">
+                <option value="years" selected data-i18n="optYears">Years</option>
+                <option value="months" data-i18n="optMonths">Months</option>
+              </select>
+            </div>
+            <input type="range" id="loanTenureRange" min="1" max="30" step="1" value="3" oninput="syncEmiInputs('tenure', 'range')" />
+          </div>
+        </div>
+
+        <!-- EMI Outputs -->
+        <div class="grid-3" style="margin-top: 18px;">
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="monthlyEmiLabel">Monthly EMI (₹)</div>
+            <div class="stat-value" id="resMonthlyEmi">₹6,407</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="totalIntLabel">Total Interest Payable (₹)</div>
+            <div class="stat-value" id="resTotalInterest" style="color: var(--warning);">₹30,636</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label" data-i18n="totalPayLabel">Total Payment (₹)</div>
+            <div class="stat-value" id="resTotalPay" style="color: var(--accent);">₹2,30,636</div>
+          </div>
+        </div>
+
+        <!-- Visual Breakdown Bar -->
+        <div class="emi-bar-wrap">
+          <div class="emi-bar">
+            <div class="emi-bar-principal" id="emiPrincipalBar" style="width: 86.7%;"></div>
+          </div>
+          <div class="emi-legend">
+            <span><span class="dot" style="background: var(--primary);"></span><span data-i18n="principalLeg">Principal</span>: <strong id="emiPrincipalPct">86.7%</strong></span>
+            <span><span class="dot" style="background: var(--warning);"></span><span data-i18n="interestLeg">Interest</span>: <strong id="emiInterestPct">13.3%</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 4: OFFICE & REPORT HUB (EXCEL-STYLE SMART SHEET & REPORT MAKER)
+         ====================================================================== -->
+    <section id="tab-office" class="tab-panel">
+      <!-- Official Print Header (Only visible when printing / saving PDF) -->
+      <div class="print-header">
+        <h2 id="printDocTitle">SmartSeva Hub — Official Report</h2>
+        <p id="printDocDate"></p>
+      </div>
+
+      <div class="card">
+        <div class="card-header no-print">
+          <div>
+            <h2 class="card-title">📋 <span data-i18n="officeTitle">Excel-Style Smart Sheet & Report Maker</span></h2>
+            <p class="card-subtitle" data-i18n="officeSub">Offline-ready data entry with auto-calculations, CSV Excel export & PDF print</p>
+          </div>
+        </div>
+
+        <!-- Sub-Switcher between Voter/Survey Mode & Hisab/Kharcha Mode -->
+        <div class="mode-switcher no-print">
+          <button type="button" class="mode-btn active" id="btn-mode-voter" onclick="switchOfficeMode('voter')">
+            🗳️ <span data-i18n="modeVoter">Voter / Survey List Maker</span>
+          </button>
+          <button type="button" class="mode-btn" id="btn-mode-hisab" onclick="switchOfficeMode('hisab')">
+            📒 <span data-i18n="modeHisab">Hisab / Kharcha (Income & Expense)</span>
+          </button>
+        </div>
+
+        <!-- ==================== MODE A: VOTER / SURVEY LIST MAKER ==================== -->
+        <div id="office-voter-view">
+          <!-- Quick Entry Form -->
+          <form class="grid-4 no-print" onsubmit="addVoterEntry(event)" style="align-items: end; margin-bottom: 18px;">
+            <div class="form-group">
+              <label class="form-label" data-i18n="vNameLabel">Full Name</label>
+              <input type="text" id="vName" class="form-control" required data-i18n-placeholder="vNamePh" placeholder="e.g., Ramesh Kumar" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="vAgeLabel">Age (Years)</label>
+              <input type="number" id="vAge" class="form-control" min="0" max="125" required placeholder="24" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="vGenderLabel">Gender</label>
+              <select id="vGender" class="form-control">
+                <option value="Male" data-i18n="gMale">Male</option>
+                <option value="Female" data-i18n="gFemale">Female</option>
+                <option value="Other" data-i18n="gOther">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="vVillageLabel">Village / Ward</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="text" id="vVillage" class="form-control" required data-i18n-placeholder="vVillagePh" placeholder="Ward 04" />
+                <button type="submit" class="btn btn-primary" data-i18n="addBtn">+ Add</button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Live Summary Cards (Voter) -->
+          <div class="grid-4">
+            <div class="stat-box">
+              <div class="stat-label" data-i18n="statTotalEntries">Total Entries</div>
+              <div class="stat-value" id="vStatTotal">0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label" data-i18n="statEligible">Eligible Voters (18+)</div>
+              <div class="stat-value" id="vStatEligible" style="color: var(--success);">0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label" data-i18n="statUnder18">Under 18</div>
+              <div class="stat-value" id="vStatUnder" style="color: var(--warning);">0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label" data-i18n="statAvgAge">Average Age</div>
+              <div class="stat-value" id="vStatAvgAge" style="color: var(--accent);">0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== MODE B: HISAB / KHARCHA SHEET ==================== -->
+        <div id="office-hisab-view" style="display: none;">
+          <!-- Quick Entry Form -->
+          <form class="grid-4 no-print" onsubmit="addHisabEntry(event)" style="align-items: end; margin-bottom: 18px;">
+            <div class="form-group">
+              <label class="form-label" data-i18n="hDescLabel">Item / Description</label>
+              <input type="text" id="hDesc" class="form-control" required data-i18n-placeholder="hDescPh" placeholder="e.g., Fertilizer / Office Paper" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="hTypeLabel">Type</label>
+              <select id="hType" class="form-control">
+                <option value="Income" data-i18n="typeIncome">Income (+)</option>
+                <option value="Expense" selected data-i18n="typeExpense">Expense (-)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="hAmtLabel">Amount (₹)</label>
+              <input type="number" id="hAmt" class="form-control" min="0.01" step="any" required placeholder="500" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="hDateLabel">Date</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="date" id="hDate" class="form-control" required />
+                <button type="submit" class="btn btn-primary" data-i18n="addBtn">+ Add</button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Live Summary Cards (Hisab) -->
+          <div class="grid-3">
+            <div class="stat-box">
+              <div class="stat-label" data-i18n="statIncome">Total Income (₹)</div>
+              <div class="stat-value" id="hStatIncome" style="color: var(--success);">₹0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label" data-i18n="statExpense">Total Expense (₹)</div>
+              <div class="stat-value" id="hStatExpense" style="color: var(--danger);">₹0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label" data-i18n="statBalance">Net Balance (₹)</div>
+              <div class="stat-value" id="hStatBalance">₹0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== SHARED SEARCH & SMART TABLE ==================== -->
+        <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 20px;">
+          <input type="text" id="officeSearch" class="form-control" style="max-width: 320px;" data-i18n-placeholder="searchTablePh" placeholder="Search entries..." oninput="renderOfficeTable()" />
+          <button type="button" class="btn btn-danger btn-sm" onclick="clearOfficeData()">
+            🗑️ <span data-i18n="clearAllBtn">Clear All</span>
+          </button>
+        </div>
+
+        <div class="table-responsive">
+          <table id="officeTable">
+            <thead id="officeTableHead"></thead>
+            <tbody id="officeTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Export Controls: Download Excel (.csv), Print/PDF, WhatsApp -->
+        <div class="btn-row no-print">
+          <button type="button" class="btn btn-primary" onclick="exportOfficeCSV()">
+            📥 <span data-i18n="exportCsvBtn">Download Excel (.csv)</span>
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="printOfficeReport()">
+            🖨️ <span data-i18n="printPdfBtn">Print / Save PDF</span>
+          </button>
+          <button type="button" class="btn btn-whatsapp" onclick="shareOfficeWhatsApp()">
+            💬 <span data-i18n="shareReportWaBtn">Share Report on WhatsApp</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Notification Element -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- ========================================================================
+       JAVASCRIPT: STATE, BILINGUAL ENGINE & ALL CALCULATORS
+       ======================================================================== -->
+  <script>
+    /* ========================================================================
+       1. BILINGUAL DICTIONARY (ENGLISH & HINDI)
+       ======================================================================== */
+    const I18N = {
+      en: {
+        tagline: "All-in-One Smart Tools & Reports",
+        tabKisan: "Kisan Hub",
+        tabStudent: "Student Hub",
+        tabDaily: "Daily Tools",
+        tabOffice: "Office & Report Hub",
+        liveBadge: "Live Calculation",
+
+        // Kisan Hub
+        kisanTitle: "Regional Land Area Converter (Bihar / UP / India)",
+        kisanSub: "Instant conversion between Bigha, Katha, Dhur, Dismil, Acre, Hectare & Sq. Ft.",
+        landValLabel: "Enter Land Area Value",
+        landUnitLabel: "Select Input Unit",
+        uBigha: "Bigha",
+        uKatha: "Katha",
+        uDhur: "Dhur",
+        uSqft: "Square Feet (Sq. Ft.)",
+        uDecimal: "Decimal (Dismil)",
+        uAcre: "Acre",
+        uHectare: "Hectare",
+        laggiLabel: "Regional Laggi Size (1 Katha Standard)",
+        laggi55: "5.5 Hath Laggi (1 Katha = 1361.25 sq. ft. — Bihar/Katihar/Purnia)",
+        laggi60: "6 Hath Laggi (1 Katha = 1620 sq. ft.)",
+        laggi65: "6.5 Hath Laggi (1 Katha = 1901.25 sq. ft.)",
+        laggi40: "4 Hath Laggi (1 Katha = 720 sq. ft. — Patna/South Bihar)",
+        laggiCustom: "Custom Katha in Sq. Ft.",
+        customKathaLabel: "Enter 1 Katha in Square Feet (Sq. Ft.)",
+        exactArea: "Exact Area",
+        copyResultBtn: "Copy Result",
+        shareWaBtn: "Share on WhatsApp",
+
+        // Student Hub
+        marksTitle: "Percentage, CGPA & Division Calculator",
+        marksSub: "Enter total marks or toggle the 5-subject quick adder below",
+        toggle5SubBtn: "+ 5-Subject Quick Adder",
+        subAdderNote: "Enter marks for 5 subjects (out of 100 each) to auto-fill total:",
+        marksObtLabel: "Marks Obtained",
+        marksTotLabel: "Total Maximum Marks",
+        pctLabel: "Percentage (%)",
+        cgpaLabel: "Estimated CGPA (10-Point)",
+        divLabel: "Division / Grade",
+        formulaTitle: "Searchable Formula Cheat-Sheet (Class 10–12 & IT)",
+        formulaSub: "Search formulas by name, symbol, or topic and copy with one click",
+        formulaSearchPh: "Search formula (e.g., Ohm, Quadratic, Kinematics, HTML)...",
+        catAll: "All",
+        catPhysics: "Physics",
+        catChemistry: "Chemistry",
+        catMaths: "Maths",
+        catComputer: "Computer/HTML",
+        copyFormulaBtn: "Copy Formula",
+
+        // Daily Tools
+        ageTitle: "Exact Age Calculator (For Forms & Exams)",
+        ageSub: "Find exact age in Years, Months & Days for Government Job & School forms",
+        dobLabel: "Date of Birth",
+        asOnLabel: "Age as on Date (Defaults to Today)",
+        exactAgeLabel: "Exact Age",
+        totalDaysLabel: "Total Days Lived",
+        nextBdayLabel: "Next Birthday Countdown",
+        emiTitle: "Loan & EMI Calculator",
+        emiSub: "Calculate monthly EMI, total interest, and principal-to-interest breakdown",
+        loanAmtLabel: "Loan Amount (₹)",
+        rateLabel: "Annual Interest Rate (%)",
+        tenureLabel: "Loan Tenure",
+        optYears: "Years",
+        optMonths: "Months",
+        monthlyEmiLabel: "Monthly EMI (₹)",
+        totalIntLabel: "Total Interest Payable (₹)",
+        totalPayLabel: "Total Payment (₹)",
+        principalLeg: "Principal",
+        interestLeg: "Interest",
+
+        // Office & Report Hub
+        officeTitle: "Excel-Style Smart Sheet & Report Maker",
+        officeSub: "Offline-ready data entry with auto-calculations, CSV Excel export & PDF print",
+        modeVoter: "Voter / Survey List Maker",
+        modeHisab: "Hisab / Kharcha (Income & Expense)",
+        vNameLabel: "Full Name",
+        vNamePh: "e.g., Ramesh Kumar",
+        vAgeLabel: "Age (Years)",
+        vGenderLabel: "Gender",
+        gMale: "Male",
+        gFemale: "Female",
+        gOther: "Other",
+        vVillageLabel: "Village / Ward",
+        vVillagePh: "Ward 04",
+        addBtn: "+ Add",
+        statTotalEntries: "Total Entries",
+        statEligible: "Eligible Voters (18+)",
+        statUnder18: "Under 18",
+        statAvgAge: "Average Age",
+        hDescLabel: "Item / Description",
+        hDescPh: "e.g., Fertilizer / Office Paper",
+        hTypeLabel: "Type",
+        typeIncome: "Income (+)",
+        typeExpense: "Expense (-)",
+        hAmtLabel: "Amount (₹)",
+        hDateLabel: "Date",
+        statIncome: "Total Income (₹)",
+        statExpense: "Total Expense (₹)",
+        statBalance: "Net Balance (₹)",
+        searchTablePh: "Search entries...",
+        clearAllBtn: "Clear All",
+        exportCsvBtn: "Download Excel (.csv)",
+        printPdfBtn: "Print / Save PDF",
+        shareReportWaBtn: "Share Report on WhatsApp",
+
+        // Dynamic Messages & Table Headers
+        thSr: "Sr.",
+        thName: "Full Name",
+        thAge: "Age",
+        thGender: "Gender",
+        thVillage: "Village / Ward",
+        thStatus: "Voter Status",
+        thAction: "Action",
+        thDate: "Date",
+        thDesc: "Item / Description",
+        thType: "Type",
+        thAmt: "Amount (₹)",
+        statusEligible: "Eligible Voter 18+",
+        statusUnder18: "Under 18",
+        copiedToast: "Copied to clipboard!",
+        noRows: "No records found. Add an entry above!",
+        confirmClear: "Are you sure you want to delete all records in this sheet?"
+      },
+      hi: {
+        tagline: "ऑल-इन-वन स्मार्ट टूल्स और रिपोर्ट्स",
+        tabKisan: "किसान हब",
+        tabStudent: "छात्र हब",
+        tabDaily: "दैनिक टूल्स",
+        tabOffice: "ऑफिस व रिपोर्ट हब",
+        liveBadge: "लाइव गणना",
+
+        // Kisan Hub
+        kisanTitle: "क्षेत्रीय भूमि क्षेत्रफल कन्वर्टर (बिहार / यूपी / भारत)",
+        kisanSub: "बीघा, कट्ठा, धुर, डिसमिल, एकड़, हेक्टेयर और वर्ग फीट में तुरंत बदलें",
+        landValLabel: "ज़मीन का मान दर्ज करें",
+        landUnitLabel: "इकाई (Unit) चुनें",
+        uBigha: "बीघा (Bigha)",
+        uKatha: "कट्ठा (Katha)",
+        uDhur: "धुर (Dhur)",
+        uSqft: "वर्ग फीट (Sq. Ft.)",
+        uDecimal: "डिसमिल (Decimal)",
+        uAcre: "एकड़ (Acre)",
+        uHectare: "हेक्टेयर (Hectare)",
+        laggiLabel: "क्षेत्रीय लग्गी का आकार (1 कट्ठा मानक)",
+        laggi55: "5.5 हाथ की लग्गी (1 कट्ठा = 1361.25 वर्ग फीट — बिहार/कटिहार/पूर्णिया)",
+        laggi60: "6 हाथ की लग्गी (1 कट्ठा = 1620 वर्ग फीट)",
+        laggi65: "6.5 हाथ की लग्गी (1 कट्ठा = 1901.25 वर्ग फीट)",
+        laggi40: "4 हाथ की लग्गी (1 कट्ठा = 720 वर्ग फीट — पटना/दक्षिण बिहार)",
+        laggiCustom: "कस्टम कट्ठा (वर्ग फीट में)",
+        customKathaLabel: "1 कट्ठा का मान वर्ग फीट (Sq. Ft.) में लिखें",
+        exactArea: "सटीक क्षेत्रफल",
+        copyResultBtn: "परिणाम कॉपी करें",
+        shareWaBtn: "व्हाट्सएप पर भेजें",
+
+        // Student Hub
+        marksTitle: "प्रतिशत, CGPA और डिवीजन कैलकुलेटर",
+        marksSub: "कुल अंक दर्ज करें या नीचे 5-विषय क्विक एडर का उपयोग करें",
+        toggle5SubBtn: "+ 5-विषय क्विक एडर",
+        subAdderNote: "कुल अंक अपने आप भरने के लिए 5 विषयों के अंक (100 में से) लिखें:",
+        marksObtLabel: "प्राप्तांक (Marks Obtained)",
+        marksTotLabel: "पूर्णांक (Total Maximum Marks)",
+        pctLabel: "प्रतिशत (%)",
+        cgpaLabel: "अनुमानित CGPA (10-पॉइंट स्केल)",
+        divLabel: "श्रेणी / डिवीजन",
+        formulaTitle: "खोजने योग्य फॉर्मूला चीट-शीट (कक्षा 10–12 व कंप्यूटर)",
+        formulaSub: "नाम, चिह्न या विषय से फॉर्मूला खोजें और एक क्लिक में कॉपी करें",
+        formulaSearchPh: "फॉर्मूला खोजें (जैसे Ohm, Quadratic, Kinematics, HTML)...",
+        catAll: "सभी",
+        catPhysics: "भौतिकी (Physics)",
+        catChemistry: "रसायन (Chemistry)",
+        catMaths: "गणित (Maths)",
+        catComputer: "कंप्यूटर / HTML",
+        copyFormulaBtn: "फॉर्मूला कॉपी करें",
+
+        // Daily Tools
+        ageTitle: "सटीक आयु कैलकुलेटर (सरकारी फॉर्म व परीक्षा हेतु)",
+        ageSub: "नौकरी और स्कूल फॉर्म के लिए वर्ष, माह और दिन में सटीक आयु जानें",
+        dobLabel: "जन्म तिथि (Date of Birth)",
+        asOnLabel: "किस तिथि तक आयु (डिफ़ॉल्ट: आज)",
+        exactAgeLabel: "सटीक आयु",
+        totalDaysLabel: "कुल जीवित दिन",
+        nextBdayLabel: "अगला जन्मदिन शेष",
+        emiTitle: "लोन और EMI कैलकुलेटर",
+        emiSub: "मासिक EMI, कुल ब्याज और मूलधन-ब्याज अनुपात की गणना करें",
+        loanAmtLabel: "लोन राशि (₹)",
+        rateLabel: "वार्षिक ब्याज दर (%)",
+        tenureLabel: "लोन अवधि",
+        optYears: "वर्ष",
+        optMonths: "महीने",
+        monthlyEmiLabel: "मासिक EMI (₹)",
+        totalIntLabel: "कुल देय ब्याज (₹)",
+        totalPayLabel: "कुल भुगतान राशि (₹)",
+        principalLeg: "मूलधन",
+        interestLeg: "ब्याज",
+
+        // Office & Report Hub
+        officeTitle: "एक्सेल-स्टाइल स्मार्ट शीट और रिपोर्ट मेकर",
+        officeSub: "ऑफलाइन डेटा एंट्री, ऑटो-गणना, एक्सेल (.csv) डाउनलोड और PDF प्रिंट",
+        modeVoter: "मतदाता / सर्वे सूची मेकर",
+        modeHisab: "हिसाब / खर्चा (आय और व्यय)",
+        vNameLabel: "पूरा नाम",
+        vNamePh: "जैसे: रमेश कुमार",
+        vAgeLabel: "आयु (वर्ष)",
+        vGenderLabel: "लिंग",
+        gMale: "पुरुष",
+        gFemale: "महिला",
+        gOther: "अन्य",
+        vVillageLabel: "गाँव / वार्ड",
+        vVillagePh: "वार्ड 04",
+        addBtn: "+ जोड़ें",
+        statTotalEntries: "कुल प्रविष्टियाँ",
+        statEligible: "योग्य मतदाता (18+)",
+        statUnder18: "18 वर्ष से कम",
+        statAvgAge: "औसत आयु",
+        hDescLabel: "वस्तु / विवरण",
+        hDescPh: "जैसे: खाद / ऑफिस पेपर",
+        hTypeLabel: "प्रकार",
+        typeIncome: "आय / जमा (+)",
+        typeExpense: "खर्च (-)",
+        hAmtLabel: "राशि (₹)",
+        hDateLabel: "तिथि",
+        statIncome: "कुल आय (₹)",
+        statExpense: "कुल खर्च (₹)",
+        statBalance: "शेष बैलेंस (₹)",
+        searchTablePh: "सूची में खोजें...",
+        clearAllBtn: "सब साफ़ करें",
+        exportCsvBtn: "एक्सेल डाउनलोड (.csv)",
+        printPdfBtn: "प्रिंट / PDF सेव करें",
+        shareReportWaBtn: "व्हाट्सएप पर रिपोर्ट भेजें",
+
+        // Dynamic Messages & Table Headers
+        thSr: "क्र.",
+        thName: "पूरा नाम",
+        thAge: "आयु",
+        thGender: "लिंग",
+        thVillage: "गाँव / वार्ड",
+        thStatus: "मतदाता स्थिति",
+        thAction: "हटाएं",
+        thDate: "तिथि",
+        thDesc: "विवरण",
+        thType: "प्रकार",
+        thAmt: "राशि (₹)",
+        statusEligible: "योग्य मतदाता 18+",
+        statusUnder18: "18 से कम",
+        copiedToast: "क्लिपबोर्ड पर कॉपी हो गया!",
+        noRows: "कोई रिकॉर्ड नहीं मिला। ऊपर से नया विवरण जोड़ें!",
+        confirmClear: "क्या आप वाकई इस शीट के सभी रिकॉर्ड हटाना चाहते हैं?"
+      }
+    };
+
+    /* ========================================================================
+       2. FORMULA DATABASE (15 ESSENTIAL FORMULAS - BILINGUAL DESCRIPTIONS)
+       ======================================================================== */
+    const FORMULAS = [
+      { cat: "Physics", title: "First Equation of Motion", formula: "v = u + at", descEn: "Final velocity (v) from initial velocity (u), acceleration (a) & time (t).", descHi: "प्रारंभिक वेग (u), त्वरण (a) और समय (t) से अंतिम वेग (v) ज्ञात करें।" },
+      { cat: "Physics", title: "Second Equation of Motion", formula: "s = ut + ½at²", descEn: "Displacement (s) covered under uniform acceleration.", descHi: "एकसमान त्वरण के तहत तय किया गया विस्थापन (s)।" },
+      { cat: "Physics", title: "Ohm's Law", formula: "V = I × R", descEn: "Voltage (V) equals electric current (I) times resistance (R).", descHi: "विभवांतर (V) = विद्युत धारा (I) × प्रतिरोध (R)।" },
+      { cat: "Physics", title: "Kinetic Energy", formula: "KE = ½mv²", descEn: "Energy possessed by a body of mass (m) moving at velocity (v).", descHi: "द्रव्यमान (m) और वेग (v) से गतिमान वस्तु की गतिज ऊर्जा।" },
+      { cat: "Chemistry", title: "Ideal Gas Law", formula: "PV = nRT", descEn: "Relates pressure (P), volume (V), moles (n), gas constant (R) & temp (T).", descHi: "दाब (P), आयतन (V), मोल (n) और तापमान (T) के बीच संबंध।" },
+      { cat: "Chemistry", title: "pH Formula", formula: "pH = -log₁₀[H⁺]", descEn: "Measures acidity or basicity based on hydrogen ion concentration.", descHi: "हाइड्रोजन आयन सांद्रता के आधार पर अम्लीयता या क्षारीयता मापता है।" },
+      { cat: "Chemistry", title: "Molarity (M)", formula: "M = Moles of Solute / Volume (L)", descEn: "Concentration of a solution in moles per liter.", descHi: "प्रति लीटर विलयन में विलेय के मोलों की संख्या।" },
+      { cat: "Chemistry", title: "Baking Soda & Bleaching Powder", formula: "NaHCO₃  |  CaOCl₂", descEn: "Chemical formulas of Sodium Bicarbonate and Calcium Oxychloride.", descHi: "बेकिंग सोडा (NaHCO₃) और विरंजक चूर्ण (CaOCl₂) के रासायनिक सूत्र।" },
+      { cat: "Maths", title: "Quadratic Formula", formula: "x = (-b ± √(b² - 4ac)) / 2a", descEn: "Finds roots of quadratic equation ax² + bx + c = 0.", descHi: "द्विघात समीकरण ax² + bx + c = 0 के मूल ज्ञात करने का सूत्र।" },
+      { cat: "Maths", title: "Pythagorean Identity", formula: "sin²θ + cos²θ = 1", descEn: "Fundamental trigonometric identity for any angle θ.", descHi: "किसी भी कोण θ के लिए मूलभूत त्रिकोणमितीय सर्वसमिका।" },
+      { cat: "Maths", title: "Area of Circle & Sphere Volume", formula: "A = πr²  |  V = (4/3)πr³", descEn: "2D circle area and 3D sphere volume with radius r.", descHi: "त्रिज्या r वाले वृत्त का क्षेत्रफल और गोले का आयतन।" },
+      { cat: "Maths", title: "Simple & Compound Interest", formula: "SI = (P×R×T)/100 | A = P(1 + R/100)ⁿ", descEn: "Calculates interest on principal P at rate R for time T/n.", descHi: "मूलधन P पर दर R से ब्याज और मिश्रधन की गणना।" },
+      { cat: "Computer", title: "HTML5 Boilerplate Tag", formula: "<!DOCTYPE html><html><body></body></html>", descEn: "Core structural tags required for every modern webpage.", descHi: "प्रत्येक आधुनिक वेबपेज के लिए आवश्यक मूलभूत HTML टैग।" },
+      { cat: "Computer", title: "CSS Flexbox Centering", formula: "display: flex; justify-content: center; align-items: center;", descEn: "Centers any child element both horizontally and vertically.", descHi: "किसी भी तत्व को क्षैतिज और लंबवत रूप से केंद्र में रखता है।" },
+      { cat: "Computer", title: "Essential Linux Commands", formula: "ls -la | cd | mkdir | grep | chmod", descEn: "List files, change directory, make folder, search text & permissions.", descHi: "फ़ाइलें देखें, फ़ोल्डर बदलें, नया फ़ोल्डर बनाएं और टेक्स्ट खोजें।" }
+    ];
+
+    /* ========================================================================
+       3. APP STATE & INITIALIZATION
+       ======================================================================== */
+    let currentLang = localStorage.getItem("smartseva_lang") || "en";
+    let currentTheme = localStorage.getItem("smartseva_theme") || "light";
+    let activeFormulaCat = "All";
+    let activeOfficeMode = "voter";
+
+    // Persistent Office Data in localStorage
+    let voterData = JSON.parse(localStorage.getItem("smartseva_voters") || "[]");
+    let hisabData = JSON.parse(localStorage.getItem("smartseva_hisab") || "[]");
+
+    // Seed sample records on very first visit so user sees how tables work
+    if (!localStorage.getItem("smartseva_initialized")) {
+      voterData = [
+        { id: 1, name: "Aarav Kumar", age: 24, gender: "Male", village: "Ward 04, Patna" },
+        { id: 2, name: "Priya Kumari", age: 16, gender: "Female", village: "Ward 04, Patna" }
+      ];
+      hisabData = [
+        { id: 1, desc: "CSC Service Fee", type: "Income", amount: 1500, date: new Date().toISOString().slice(0, 10) },
+        { id: 2, desc: "A4 Paper Rim & Ink", type: "Expense", amount: 450, date: new Date().toISOString().slice(0, 10) }
+      ];
+      localStorage.setItem("smartseva_voters", JSON.stringify(voterData));
+      localStorage.setItem("smartseva_hisab", JSON.stringify(hisabData));
+      localStorage.setItem("smartseva_initialized", "true");
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      applyTheme(currentTheme);
+      setLanguage(currentLang);
+
+      // Set default dates
+      const todayStr = new Date().toISOString().slice(0, 10);
+      document.getElementById("asOnInput").value = todayStr;
+      document.getElementById("dobInput").value = "2002-08-15";
+      document.getElementById("hDate").value = todayStr;
+
+      // Initial Calculations
+      calculateLand();
+      calculateMarks();
+      renderFormulas();
+      calculateAge();
+      calculateEMI();
+      renderOfficeAll();
+    });
+
+    /* ========================================================================
+       4. THEME, LANGUAGE & TAB SWITCHING
+       ======================================================================== */
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      document.getElementById("themeToggle").textContent = theme === "dark" ? "☀️" : "🌙";
+      localStorage.setItem("smartseva_theme", theme);
+    }
+
+    function toggleTheme() {
+      currentTheme = currentTheme === "light" ? "dark" : "light";
+      applyTheme(currentTheme);
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem("smartseva_lang", lang);
+
+      document.getElementById("btn-lang-en").classList.toggle("active", lang === "en");
+      document.getElementById("btn-lang-hi").classList.toggle("active", lang === "hi");
+
+      const dict = I18N[lang];
+
+      // Update all elements with data-i18n
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key]) el.textContent = dict[key];
+      });
+
+      // Update all placeholders with data-i18n-placeholder
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (dict[key]) el.placeholder = dict[key];
+      });
+
+      // Re-render dynamic sections in active language
+      calculateMarks();
+      renderFormulas();
+      calculateAge();
+      renderOfficeAll();
+    }
+
+    function switchTab(tabId, btnEl) {
+      document.querySelectorAll(".tab-pill").forEach(b => b.classList.remove("active"));
+      btnEl.classList.add("active");
+
+      document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+      document.getElementById("tab-" + tabId).classList.add("active");
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    /* ========================================================================
+       5. TAB 1: KISAN HUB (LAND AREA CONVERTER)
+       ======================================================================== */
+    function handleLaggiChange() {
+      const preset = document.getElementById("laggiPreset").value;
+      const customWrap = document.getElementById("customKathaWrap");
+      customWrap.style.display = preset === "custom" ? "flex" : "none";
+      calculateLand();
+    }
+
+    function getKathaInSqft() {
+      const preset = document.getElementById("laggiPreset").value;
+      if (preset === "custom") {
+        const val = parseFloat(document.getElementById("customKathaSqft").value);
+        return (!isNaN(val) && val > 0) ? val : 1361.25;
+      }
+      return parseFloat(preset);
+    }
+
+    function calculateLand() {
+      const rawVal = parseFloat(document.getElementById("landValue").value);
+      const val = (!isNaN(rawVal) && rawVal >= 0) ? rawVal : 0;
+      const unit = document.getElementById("landUnit").value;
+      const kathaSqft = getKathaInSqft();
+      const bighaSqft = kathaSqft * 20;
+      const dhurSqft = kathaSqft / 20;
+
+      // Convert input to Square Feet first
+      let totalSqft = 0;
+      switch (unit) {
+        case "bigha":   totalSqft = val * bighaSqft; break;
+        case "katha":   totalSqft = val * kathaSqft; break;
+        case "dhur":    totalSqft = val * dhurSqft; break;
+        case "sqft":    totalSqft = val; break;
+        case "decimal": totalSqft = val * 435.6; break;
+        case "acre":    totalSqft = val * 43560; break;
+        case "hectare": totalSqft = val * 107639; break;
+      }
+
+      const bigha = totalSqft / bighaSqft;
+      const katha = totalSqft / kathaSqft;
+      const dhur = totalSqft / dhurSqft;
+      const decimal = totalSqft / 435.6;
+      const acre = totalSqft / 43560;
+
+      document.getElementById("resBigha").textContent = bigha.toFixed(4);
+      document.getElementById("resKatha").textContent = katha.toFixed(4);
+      document.getElementById("resDhur").textContent = dhur.toFixed(2);
+      document.getElementById("resSqft").textContent = totalSqft.toLocaleString("en-IN", { maximumFractionDigits: 2 });
+      document.getElementById("resDecimal").textContent = decimal.toFixed(4);
+      document.getElementById("resAcre").textContent = acre.toFixed(4);
+      document.getElementById("dhurSqftNote").textContent = `1 Dhur = ${dhurSqft.toFixed(2)} sq. ft.`;
+
+      return { val, unit, kathaSqft, bigha, katha, dhur, totalSqft, decimal, acre };
+    }
+
+    function getLandSummaryText() {
+      const d = calculateLand();
+      const unitSelect = document.getElementById("landUnit");
+      const unitLabel = unitSelect.options[unitSelect.selectedIndex].text;
+
+      if (currentLang === "hi") {
+        return `🌾 *SmartSeva Hub — ज़मीन नापी रिपोर्ट*\n` +
+               `इनपुट: ${d.val} ${unitLabel}\n` +
+               `मानक: 1 कट्ठा = ${d.kathaSqft} वर्ग फीट\n` +
+               `------------------------\n` +
+               `• बीघा: ${d.bigha.toFixed(4)}\n` +
+               `• कट्ठा: ${d.katha.toFixed(4)}\n` +
+               `• धुर: ${d.dhur.toFixed(2)}\n` +
+               `• वर्ग फीट: ${d.totalSqft.toFixed(2)} Sq. Ft.\n` +
+               `• डिसमिल: ${d.decimal.toFixed(4)}\n` +
+               `• एकड़: ${d.acre.toFixed(4)}`;
+      }
+      return `🌾 *SmartSeva Hub — Land Area Report*\n` +
+             `Input: ${d.val} ${unitLabel}\n` +
+             `Standard: 1 Katha = ${d.kathaSqft} sq. ft.\n` +
+             `------------------------\n` +
+             `• Bigha: ${d.bigha.toFixed(4)}\n` +
+             `• Katha: ${d.katha.toFixed(4)}\n` +
+             `• Dhur: ${d.dhur.toFixed(2)}\n` +
+             `• Sq. Feet: ${d.totalSqft.toFixed(2)} sq. ft.\n` +
+             `• Decimal (Dismil): ${d.decimal.toFixed(4)}\n` +
+             `• Acre: ${d.acre.toFixed(4)}`;
+    }
+
+    function copyLandResult() {
+      navigator.clipboard.writeText(getLandSummaryText());
+      showToast(I18N[currentLang].copiedToast);
+    }
+
+    function shareLandWhatsApp() {
+      const url = `https://wa.me/?text=${encodeURIComponent(getLandSummaryText())}`;
+      window.open(url, "_blank");
+    }
+
+    /* ========================================================================
+       6. TAB 2: STUDENT HUB (MARKS/CGPA + FORMULA CHEAT-SHEET)
+       ======================================================================== */
+    function toggleSubjectAdder() {
+      const box = document.getElementById("subjectAdderBox");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+
+    function sumSubjects() {
+      let sum = 0;
+      let count = 0;
+      document.querySelectorAll(".sub-mark").forEach(inp => {
+        const v = parseFloat(inp.value);
+        if (!isNaN(v) && v >= 0) {
+          sum += v;
+          count++;
+        }
+      });
+      if (count > 0) {
+        document.getElementById("marksObtained").value = sum;
+        document.getElementById("marksTotal").value = count * 100;
+        calculateMarks();
+      }
+    }
+
+    function calculateMarks() {
+      const obt = parseFloat(document.getElementById("marksObtained").value);
+      const tot = parseFloat(document.getElementById("marksTotal").value);
+
+      if (isNaN(obt) || isNaN(tot) || tot <= 0 || obt < 0) {
+        document.getElementById("resPct").textContent = "0.00%";
+        document.getElementById("resCgpa").textContent = "0.00";
+        document.getElementById("resDiv").textContent = "--";
+        return;
+      }
+
+      const pct = (obt / tot) * 100;
+      const cgpa = Math.min(10, pct / 9.5);
+
+      let divText = "";
+      let divColor = "var(--success)";
+
+      if (pct >= 75) {
+        divText = currentLang === "hi" ? "प्रथम श्रेणी (विशेष योग्यता 75%+)" : "1st Division (Distinction)";
+      } else if (pct >= 60) {
+        divText = currentLang === "hi" ? "प्रथम श्रेणी (60%+)" : "1st Division";
+      } else if (pct >= 45) {
+        divText = currentLang === "hi" ? "द्वितीय श्रेणी (45%+)" : "2nd Division";
+        divColor = "var(--primary)";
+      } else if (pct >= 33) {
+        divText = currentLang === "hi" ? "तृतीय श्रेणी (33%+)" : "3rd Division";
+        divColor = "var(--warning)";
+      } else {
+        divText = currentLang === "hi" ? "अनुत्तीर्ण (33% से कम)" : "Below Pass Marks (<33%)";
+        divColor = "var(--danger)";
+      }
+
+      document.getElementById("resPct").textContent = pct.toFixed(2) + "%";
+      document.getElementById("resCgpa").textContent = cgpa.toFixed(2);
+      const divEl = document.getElementById("resDiv");
+      divEl.textContent = divText;
+      divEl.style.color = divColor;
+    }
+
+    function setFormulaCat(cat, btnEl) {
+      activeFormulaCat = cat;
+      document.querySelectorAll("#formulaCategories .pill-btn").forEach(b => b.classList.remove("active"));
+      btnEl.classList.add("active");
+      renderFormulas();
+    }
+
+    function renderFormulas() {
+      const q = document.getElementById("formulaSearch").value.trim().toLowerCase();
+      const grid = document.getElementById("formulaGrid");
+
+      const filtered = FORMULAS.filter(item => {
+        const matchCat = activeFormulaCat === "All" || item.cat === activeFormulaCat;
+        const matchSearch = !q ||
+          item.title.toLowerCase().includes(q) ||
+          item.formula.toLowerCase().includes(q) ||
+          item.descEn.toLowerCase().includes(q) ||
+          item.descHi.includes(q);
+        return matchCat && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<p style="color: var(--text-muted); grid-column: 1/-1;">${currentLang === "hi" ? "कोई फॉर्मूला नहीं मिला।" : "No matching formulas found."}</p>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map((item, idx) => `
+        <div class="formula-card">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <strong style="font-size:0.95rem;">${item.title}</strong>
+              <span class="badge badge-primary">${item.cat}</span>
+            </div>
+            <div class="formula-code">${escapeHtml(item.formula)}</div>
+            <p style="font-size:0.82rem; color:var(--text-secondary); margin-top:8px;">
+              ${currentLang === "hi" ? item.descHi : item.descEn}
+            </p>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="copyText('${escapeJs(item.formula)}')">
+            📋 ${I18N[currentLang].copyFormulaBtn}
+          </button>
+        </div>
+      `).join("");
+    }
+
+    function copyText(txt) {
+      navigator.clipboard.writeText(txt);
+      showToast(I18N[currentLang].copiedToast);
+    }
+
+    /* ========================================================================
+       7. TAB 3: DAILY TOOLS (EXACT AGE & EMI CALCULATOR)
+       ======================================================================== */
+    function calculateAge() {
+      const dobVal = document.getElementById("dobInput").value;
+      const asOnVal = document.getElementById("asOnInput").value;
+
+      if (!dobVal || !asOnVal) return;
+
+      const dob = new Date(dobVal + "T00:00:00");
+      const asOn = new Date(asOnVal + "T00:00:00");
+
+      if (dob > asOn) {
+        document.getElementById("resExactAge").textContent = currentLang === "hi" ? "अमान्य तिथि" : "Invalid Date";
+        document.getElementById("resTotalDays").textContent = "--";
+        document.getElementById("resNextBday").textContent = "--";
+        return;
+      }
+
+      let years = asOn.getFullYear() - dob.getFullYear();
+      let months = asOn.getMonth() - dob.getMonth();
+      let days = asOn.getDate() - dob.getDate();
+
+      if (days < 0) {
+        months--;
+        const prevMonth = new Date(asOn.getFullYear(), asOn.getMonth(), 0);
+        days += prevMonth.getDate();
+      }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      const diffMs = asOn - dob;
+      const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+      // Countdown to next birthday
+      let nextBday = new Date(asOn.getFullYear(), dob.getMonth(), dob.getDate());
+      if (nextBday < asOn) {
+        nextBday.setFullYear(asOn.getFullYear() + 1);
+      }
+      const daysToBday = Math.round((nextBday - asOn) / (1000 * 60 * 60 * 24));
+
+      if (currentLang === "hi") {
+        document.getElementById("resExactAge").textContent = `${years} वर्ष, ${months} माह, ${days} दिन`;
+        document.getElementById("resTotalDays").textContent = `${totalDays.toLocaleString("en-IN")} दिन`;
+        document.getElementById("resNextBday").textContent = daysToBday === 0 ? "आज जन्मदिन है! 🎉" : `${daysToBday} दिन शेष`;
+      } else {
+        document.getElementById("resExactAge").textContent = `${years} Yrs, ${months} Mos, ${days} Days`;
+        document.getElementById("resTotalDays").textContent = `${totalDays.toLocaleString("en-IN")} Days`;
+        document.getElementById("resNextBday").textContent = daysToBday === 0 ? "Happy Birthday! 🎉" : `${daysToBday} Days left`;
+      }
+    }
+
+    function syncEmiInputs(field, source) {
+      if (field === "amount") {
+        const num = document.getElementById("loanAmount");
+        const rng = document.getElementById("loanAmountRange");
+        if (source === "range") num.value = rng.value;
+        else rng.value = num.value || 0;
+      } else if (field === "rate") {
+        const num = document.getElementById("interestRate");
+        const rng = document.getElementById("interestRateRange");
+        if (source === "range") num.value = rng.value;
+        else rng.value = num.value || 0;
+      } else if (field === "tenure") {
+        const num = document.getElementById("loanTenure");
+        const rng = document.getElementById("loanTenureRange");
+        if (source === "range") num.value = rng.value;
+        else rng.value = num.value || 1;
+      }
+      calculateEMI();
+    }
+
+    function calculateEMI() {
+      const P = Math.max(0, parseFloat(document.getElementById("loanAmount").value) || 0);
+      const annualRate = Math.max(0, parseFloat(document.getElementById("interestRate").value) || 0);
+      const tenureVal = Math.max(1, parseFloat(document.getElementById("loanTenure").value) || 1);
+      const tenureType = document.getElementById("tenureType").value;
+
+      const N = tenureType === "years" ? tenureVal * 12 : tenureVal;
+      const R = annualRate / 12 / 100;
+
+      let emi = 0;
+      if (P > 0) {
+        if (R === 0) {
+          emi = P / N;
+        } else {
+          const factor = Math.pow(1 + R, N);
+          emi = (P * R * factor) / (factor - 1);
+        }
+      }
+
+      const totalPayment = emi * N;
+      const totalInterest = Math.max(0, totalPayment - P);
+
+      const principalPct = totalPayment > 0 ? (P / totalPayment) * 100 : 100;
+      const interestPct = totalPayment > 0 ? (totalInterest / totalPayment) * 100 : 0;
+
+      document.getElementById("resMonthlyEmi").textContent = "₹" + Math.round(emi).toLocaleString("en-IN");
+      document.getElementById("resTotalInterest").textContent = "₹" + Math.round(totalInterest).toLocaleString("en-IN");
+      document.getElementById("resTotalPay").textContent = "₹" + Math.round(totalPayment).toLocaleString("en-IN");
+
+      document.getElementById("emiPrincipalBar").style.width = principalPct.toFixed(1) + "%";
+      document.getElementById("emiPrincipalPct").textContent = principalPct.toFixed(1) + "%";
+      document.getElementById("emiInterestPct").textContent = interestPct.toFixed(1) + "%";
+    }
+
+    /* ========================================================================
+       8. TAB 4: OFFICE & REPORT HUB (VOTER SURVEY & HISAB SHEET)
+       ======================================================================== */
+    function switchOfficeMode(mode) {
+      activeOfficeMode = mode;
+      document.getElementById("btn-mode-voter").classList.toggle("active", mode === "voter");
+      document.getElementById("btn-mode-hisab").classList.toggle("active", mode === "hisab");
+
+      document.getElementById("office-voter-view").style.display = mode === "voter" ? "block" : "none";
+      document.getElementById("office-hisab-view").style.display = mode === "hisab" ? "block" : "none";
+      document.getElementById("officeSearch").value = "";
+
+      renderOfficeAll();
+    }
+
+    function addVoterEntry(e) {
+      e.preventDefault();
+      const name = document.getElementById("vName").value.trim();
+      const age = parseInt(document.getElementById("vAge").value, 10);
+      const gender = document.getElementById("vGender").value;
+      const village = document.getElementById("vVillage").value.trim();
+
+      if (!name || isNaN(age) || age < 0 || !village) return;
+
+      voterData.unshift({ id: Date.now(), name, age, gender, village });
+      localStorage.setItem("smartseva_voters", JSON.stringify(voterData));
+
+      document.getElementById("vName").value = "";
+      document.getElementById("vAge").value = "";
+      renderOfficeAll();
+    }
+
+    function addHisabEntry(e) {
+      e.preventDefault();
+      const desc = document.getElementById("hDesc").value.trim();
+      const type = document.getElementById("hType").value;
+      const amount = parseFloat(document.getElementById("hAmt").value);
+      const date = document.getElementById("hDate").value;
+
+      if (!desc || isNaN(amount) || amount <= 0 || !date) return;
+
+      hisabData.unshift({ id: Date.now(), desc, type, amount, date });
+      localStorage.setItem("smartseva_hisab", JSON.stringify(hisabData));
+
+      document.getElementById("hDesc").value = "";
+      document.getElementById("hAmt").value = "";
+      renderOfficeAll();
+    }
+
+    function deleteOfficeRow(id) {
+      if (activeOfficeMode === "voter") {
+        voterData = voterData.filter(item => item.id !== id);
+        localStorage.setItem("smartseva_voters", JSON.stringify(voterData));
+      } else {
+        hisabData = hisabData.filter(item => item.id !== id);
+        localStorage.setItem("smartseva_hisab", JSON.stringify(hisabData));
+      }
+      renderOfficeAll();
+    }
+
+    function clearOfficeData() {
+      if (!confirm(I18N[currentLang].confirmClear)) return;
+      if (activeOfficeMode === "voter") {
+        voterData = [];
+        localStorage.setItem("smartseva_voters", "[]");
+      } else {
+        hisabData = [];
+        localStorage.setItem("smartseva_hisab", "[]");
+      }
+      renderOfficeAll();
+    }
+
+    function renderOfficeAll() {
+      updateOfficeStats();
+      renderOfficeTable();
+    }
+
+    function updateOfficeStats() {
+      if (activeOfficeMode === "voter") {
+        const total = voterData.length;
+        const eligible = voterData.filter(v => v.age >= 18).length;
+        const under = total - eligible;
+        const avgAge = total > 0 ? (voterData.reduce((s, v) => s + v.age, 0) / total).toFixed(1) : 0;
+
+        document.getElementById("vStatTotal").textContent = total;
+        document.getElementById("vStatEligible").textContent = eligible;
+        document.getElementById("vStatUnder").textContent = under;
+        document.getElementById("vStatAvgAge").textContent = avgAge;
+      } else {
+        const income = hisabData.filter(h => h.type === "Income").reduce((s, h) => s + h.amount, 0);
+        const expense = hisabData.filter(h => h.type === "Expense").reduce((s, h) => s + h.amount, 0);
+        const balance = income - expense;
+
+        document.getElementById("hStatIncome").textContent = "₹" + income.toLocaleString("en-IN");
+        document.getElementById("hStatExpense").textContent = "₹" + expense.toLocaleString("en-IN");
+        const balEl = document.getElementById("hStatBalance");
+        balEl.textContent = (balance < 0 ? "-₹" : "₹") + Math.abs(balance).toLocaleString("en-IN");
+        balEl.style.color = balance >= 0 ? "var(--success)" : "var(--danger)";
+      }
+    }
+
+    function renderOfficeTable() {
+      const dict = I18N[currentLang];
+      const q = document.getElementById("officeSearch").value.trim().toLowerCase();
+      const thead = document.getElementById("officeTableHead");
+      const tbody = document.getElementById("officeTableBody");
+
+      if (activeOfficeMode === "voter") {
+        thead.innerHTML = `
+          <tr>
+            <th>${dict.thSr}</th>
+            <th>${dict.thName}</th>
+            <th>${dict.thAge}</th>
+            <th>${dict.thGender}</th>
+            <th>${dict.thVillage}</th>
+            <th>${dict.thStatus}</th>
+            <th class="no-print">${dict.thAction}</th>
+          </tr>
+        `;
+
+        const rows = voterData.filter(v =>
+          !q || v.name.toLowerCase().includes(q) || v.village.toLowerCase().includes(q) || String(v.age).includes(q)
+        );
+
+        if (rows.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted);">${dict.noRows}</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = rows.map((v, idx) => {
+          const isEligible = v.age >= 18;
+          const badgeClass = isEligible ? "badge-success" : "badge-warning";
+          const statusLabel = isEligible ? dict.statusEligible : dict.statusUnder18;
+          const genderLabel = v.gender === "Male" ? dict.gMale : (v.gender === "Female" ? dict.gFemale : dict.gOther);
+          return `
+            <tr>
+              <td>${idx + 1}</td>
+              <td><strong>${escapeHtml(v.name)}</strong></td>
+              <td>${v.age}</td>
+              <td>${genderLabel}</td>
+              <td>${escapeHtml(v.village)}</td>
+              <td><span class="badge ${badgeClass}">${statusLabel}</span></td>
+              <td class="no-print">
+                <button type="button" class="btn btn-danger btn-sm" onclick="deleteOfficeRow(${v.id})">✕</button>
+              </td>
+            </tr>
+          `;
+        }).join("");
+
+      } else {
+        thead.innerHTML = `
+          <tr>
+            <th>${dict.thSr}</th>
+            <th>${dict.thDate}</th>
+            <th>${dict.thDesc}</th>
+            <th>${dict.thType}</th>
+            <th>${dict.thAmt}</th>
+            <th class="no-print">${dict.thAction}</th>
+          </tr>
+        `;
+
+        const rows = hisabData.filter(h =>
+          !q || h.desc.toLowerCase().includes(q) || h.type.toLowerCase().includes(q) || h.date.includes(q)
+        );
+
+        if (rows.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted);">${dict.noRows}</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = rows.map((h, idx) => {
+          const isInc = h.type === "Income";
+          const badgeClass = isInc ? "badge-success" : "badge-danger";
+          const typeLabel = isInc ? dict.typeIncome : dict.typeExpense;
+          return `
+            <tr>
+              <td>${idx + 1}</td>
+              <td>${h.date}</td>
+              <td><strong>${escapeHtml(h.desc)}</strong></td>
+              <td><span class="badge ${badgeClass}">${typeLabel}</span></td>
+              <td style="font-weight:700; color:${isInc ? 'var(--success)' : 'var(--danger)'};">
+                ${isInc ? '+' : '-'}₹${h.amount.toLocaleString("en-IN")}
+              </td>
+              <td class="no-print">
+                <button type="button" class="btn btn-danger btn-sm" onclick="deleteOfficeRow(${h.id})">✕</button>
+              </td>
+            </tr>
+          `;
+        }).join("");
+      }
+    }
+
+    /* ========================================================================
+       9. EXCEL (.CSV) EXPORT, PRINT PDF & WHATSAPP REPORT SHARE
+       ======================================================================== */
+    function exportOfficeCSV() {
+      const dict = I18N[currentLang];
+      let csvLines = [];
+
+      if (activeOfficeMode === "voter") {
+        csvLines.push([dict.thSr, dict.thName, dict.thAge, dict.thGender, dict.thVillage, dict.thStatus].join(","));
+        voterData.forEach((v, idx) => {
+          const status = v.age >= 18 ? dict.statusEligible : dict.statusUnder18;
+          csvLines.push([
+            idx + 1,
+            `"${v.name.replace(/"/g, '""')}"`,
+            v.age,
+            `"${v.gender}"`,
+            `"${v.village.replace(/"/g, '""')}"`,
+            `"${status}"`
+          ].join(","));
+        });
+      } else {
+        csvLines.push([dict.thSr, dict.thDate, dict.thDesc, dict.thType, dict.thAmt].join(","));
+        hisabData.forEach((h, idx) => {
+          csvLines.push([
+            idx + 1,
+            h.date,
+            `"${h.desc.replace(/"/g, '""')}"`,
+            h.type,
+            h.amount
+          ].join(","));
+        });
+      }
+
+      // Add UTF-8 BOM (\uFEFF) so Hindi text opens cleanly in MS Excel & LibreOffice Calc
+      const blob = new Blob(["\uFEFF" + csvLines.join("\n")], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `SmartSeva_${activeOfficeMode}_${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function printOfficeReport() {
+      const title = activeOfficeMode === "voter"
+        ? (currentLang === "hi" ? "SmartSeva Hub — मतदाता / सर्वे सूची रिपोर्ट" : "SmartSeva Hub — Voter / Survey List Report")
+        : (currentLang === "hi" ? "SmartSeva Hub — आय-व्यय (हिसाब) रिपोर्ट" : "SmartSeva Hub — Income & Expense Report");
+      document.getElementById("printDocTitle").textContent = title;
+      document.getElementById("printDocDate").textContent = new Date().toLocaleString();
+      window.print();
+    }
+
+    function shareOfficeWhatsApp() {
+      let msg = "";
+      if (activeOfficeMode === "voter") {
+        const total = voterData.length;
+        const eligible = voterData.filter(v => v.age >= 18).length;
+        const under = total - eligible;
+        msg = currentLang === "hi"
+          ? `🗳️ *SmartSeva Hub — मतदाता/सर्वे रिपोर्ट*\nकुल प्रविष्टियाँ: ${total}\nयोग्य मतदाता (18+): ${eligible}\n18 से कम: ${under}\n\n`
+          : `🗳️ *SmartSeva Hub — Voter/Survey Report*\nTotal Entries: ${total}\nEligible Voters (18+): ${eligible}\nUnder 18: ${under}\n\n`;
+        voterData.slice(0, 15).forEach((v, i) => {
+          msg += `${i + 1}. ${v.name} (${v.age}y, ${v.village}) - ${v.age >= 18 ? "✅ 18+" : "⏳ <18"}\n`;
+        });
+      } else {
+        const income = hisabData.filter(h => h.type === "Income").reduce((s, h) => s + h.amount, 0);
+        const expense = hisabData.filter(h => h.type === "Expense").reduce((s, h) => s + h.amount, 0);
+        const balance = income - expense;
+        msg = currentLang === "hi"
+          ? `📒 *SmartSeva Hub — हिसाब / खर्चा रिपोर्ट*\nकुल आय: ₹${income}\nकुल खर्च: ₹${expense}\nशेष बैलेंस: ₹${balance}\n\n`
+          : `📒 *SmartSeva Hub — Hisab / Kharcha Report*\nTotal Income: ₹${income}\nTotal Expense: ₹${expense}\nNet Balance: ₹${balance}\n\n`;
+        hisabData.slice(0, 15).forEach((h, i) => {
+          msg += `${i + 1}. ${h.desc} (${h.date}): ${h.type === "Income" ? "+" : "-"}₹${h.amount}\n`;
+        });
+      }
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    /* ========================================================================
+       10. SECURITY HELPER FUNCTIONS (XSS PREVENTION)
+       ======================================================================== */
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function escapeJs(str) {
+      return String(str).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+    }
+  </script>
+</body>
+</html>
